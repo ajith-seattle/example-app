@@ -197,4 +197,13 @@ class UserController extends Controller
        }
        
     }
+
+    // userlist
+    public function userlist()
+{
+    $userroles = UserRole::all(); // Retrieve user roles data from the database
+
+    return view('userlist', compact('userroles'));
+}
+
 }
