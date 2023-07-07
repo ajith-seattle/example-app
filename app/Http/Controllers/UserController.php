@@ -20,7 +20,8 @@ class UserController extends Controller
     {
         $users = User::latest()->paginate(5);
     
-        return response()->json($users);
+        return view('users.index',compact('users'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     function loginindex(Request $request)
     {
