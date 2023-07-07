@@ -179,7 +179,7 @@ class UserController extends Controller
     {
         $user->delete();
     
-        return redirect()->route('users.index')
+        return redirect()->route('userroles.index')
                         ->with('success','User deleted successfully');
     }
     public function deleteUserData($id)
@@ -199,11 +199,6 @@ class UserController extends Controller
     }
 
     // userlist
-    public function userlist()
-{
-    $userroles = UserRole::all(); // Retrieve user roles data from the database
-
-    return view('userlist', compact('userroles'));
-}
+ 
 
 }

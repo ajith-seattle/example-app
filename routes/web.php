@@ -9,6 +9,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PurchasecategoryController;
 use App\Http\Controllers\PurchaseController;
 
+use App\Http\Controllers\UserroleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +32,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
-// Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+Route::get('/userroles', [UserroleController::class, 'index']);
+
+
 
 Route::resource('users', UserController::class);
 Route::resource('companies', CompanyController::class);

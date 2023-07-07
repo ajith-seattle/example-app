@@ -74,7 +74,7 @@
                                     <a class="dropdown-item" href="/users/create" >
                                         {{ __('Create Users') }}
                                     </a>
-                                    <a class="dropdown-item" href="/users/userlist" >
+                                    <a class="dropdown-item" href="/userroles" >
                                         {{ __('useritems') }}
                                     </a>
                                     
