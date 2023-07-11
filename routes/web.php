@@ -44,3 +44,9 @@ Route::resource('states', StateController::class);
 Route::resource('projects', ProjectController::class);
 Route::resource('purchasecategories', PurchasecategoryController::class);
 Route::resource('purchases', PurchaseController::class);
+
+// Route::post('/roleconnect/update', [RoleConnectController::class, 'update'])->name('roleconnect.update');
+
+
+Route::get('/userroles', [UserroleController::class, 'index'])->name('userroles.index');
+Route::post('/userroles/update', [UserroleController::class, 'updateRoleConnect'])->name('userroles.updateRoleConnect');

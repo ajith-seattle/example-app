@@ -45,3 +45,7 @@ Route::delete("deleteStateData/{id?}",[StateController::class,'deleteStateData']
 
 
 Route::resource('users',App\Http\Controllers\UserController::class)->only(['index']);
+
+Route::post('/roleconnect/update', 'UserroleController@updateRoleConnect')->name('roleconnect.update');
+
+Route::post('/store-role-connect', 'RoleConnectController@store')->name('storeRoleConnect');

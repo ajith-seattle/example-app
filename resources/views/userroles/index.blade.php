@@ -2,23 +2,34 @@
 
 @section('content')
     <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <!-- Add more table headers if needed -->
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($userRoles as $userRole)
+ <form action="{{ route('userroles.updateRoleConnect') }}" method="POST">
+
+            @csrf
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{ $userRole->id }}</td>
-                        <td>{{ $userRole->name }}</td>
-                        <!-- Add more table cells with corresponding user role properties -->
+                        <th>ID</th>
+                        <th>Name with Checkbox</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($userRoles as $userRole)
+                    @foreach ( $roleConnects as  $roleConnect)
+                        <tr>
+                            <td>{{ $userRole->id }}</td>
+                            <td>
+                                <label>
+                                <input type="checkbox" name="userRoleIds[]" value="{{ $userRole->id }}" {{ $userRole->id == $roleConnect->userrole_id ? 'checked' : '' }}>
+
+                                    {{ $userRole->name }}
+                                </label>
+                            </td>
+                        </tr>
+                    @endforeach
+                    @endforeach
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 @endsection
