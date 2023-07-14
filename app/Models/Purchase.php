@@ -31,5 +31,15 @@ class Purchase extends Model
 
         
     ];
+    public function location()
+{
+    return $this->belongsTo(Location::class, 'project_location');
+}
+
+public function project()
+{
+    return $this->belongsTo(Project::class, 'project_name');
+}
+
 }
 ?>

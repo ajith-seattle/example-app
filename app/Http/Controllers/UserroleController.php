@@ -31,21 +31,32 @@ class UserroleController extends Controller
     public function updateRoleConnect(Request $request)
     {
         $userRoleIds = $request->input('userRoleIds', []);
-    //    $userId = Usertype::where('id', $usertype_id)->value('usertype_id');
-
- $userId = Auth::id();
-        // Delete existing role connects for the current user
-        RoleConnect::where('usertype_id', $userId)->delete();
-
-        // Create new role connects based on the selected checkboxes
-        foreach ($userRoleIds as $userRoleId) {
+        $userId = Auth::id();
+    
+        // Get the existing role connects for the user
+        $existingRoleConnectIds = RoleConnect::where('usertype_id', $userId)->pluck('userrole_id')->toArray();
+    
+        // Find the role connects to be deleted
+        $roleConnectsToDelete = array_diff($existingRoleConnectIds, $userRoleIds);
+    
+        // Find the role connects to be added
+        $roleConnectsToAdd = array_diff($userRoleIds, $existingRoleConnectIds);
+    
+        // Delete role connects that are no longer selected
+        RoleConnect::where('usertype_id', $userId)->whereIn('userrole_id', $roleConnectsToDelete)->delete();
+    
+        // Create new role connects for selected options
+        foreach ($roleConnectsToAdd as $userRoleId) {
             RoleConnect::create([
                 'userrole_id' => $userRoleId,
                 'usertype_id' => $userId,
             ]);
         }
-
+    
         return redirect()->back()->with('success', 'Role Connect updated successfully.');
     }
+    
+
+    
 }
 
