@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     use HasFactory;
-     /**
+
+    /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
         'project_name',
@@ -28,18 +28,34 @@ class Purchase extends Model
         'phone',
         'userid',
         'status'
-
-        
     ];
+
+ 
+    public function purchaseCategory()
+    {
+        return $this->belongsTo(PurchaseCategory::class, 'purchase_category');
+    }
+    
+    
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_name');
+    }
+
+
     public function location()
 {
     return $this->belongsTo(Location::class, 'project_location');
 }
 
-public function project()
+public function state()
 {
-    return $this->belongsTo(Project::class, 'project_name');
+    return $this->belongsTo(State::class, 'state');
 }
+public function user()
+{
 
+    return $this->belongsTo(User::class, 'subcontractor')->where('usertype', 3); 
 }
-?>
+}

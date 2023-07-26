@@ -11,6 +11,13 @@ use App\Models\State;
 
 use Illuminate\Http\Request;
 
+// pdf 
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
+use Illuminate\Support\Facades\Log;
+use PDF;
+
 class PurchaseController extends Controller
 {
     /**
@@ -21,51 +28,59 @@ class PurchaseController extends Controller
     public function index(Request $request)
     {
         $date = $request->input('date');
-
-        if ($date) {
-            return redirect()->route('purchases.search', ['date' => $date]);
-        }
-
+    
         $purchases = Purchase::latest()->paginate(5);
-
-        return view('purchases.index', compact('purchases'))
+        $purchasecategory = PurchaseCategory::latest()->get(); // Add this line to retrieve all purchase categories
+        $locationnames = Location::latest()->get();
+        return view('purchases.index', compact('purchases', 'purchasecategory','locationnames'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-
-    /**
-     * Display the search results.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function search(Request $request)
-    {
-        $date = $request->input('date');
-        $purchases = Purchase::with('project.location')
-            ->where('purchase_date', $date)
-            ->get();
-    
-        return view('purchases.search', compact('date', 'purchases'));
-    }
     
 
+/**
+ * Show the form for editing the specified resource.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Illuminate\Http\Response
+ */
+public function search(Request $request)
+{
+    $dateString = $request->input('date');
+    $category = $request->input('category');
+    $location = $request->input('location');
 
-  /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // Retrieve the purchase by ID and load its related models
-        $purchase = Purchase::with('project.location')->findOrFail($id);
+    $date = new \DateTime($dateString);
+    $formattedDate = $date->format('Y-m-d');
+    
+    $purchases = Purchase::with(['project', 'location', 'purchaseCategory'])
+        ->when($dateString, function ($query, $dateString) {
+            return $query->where('purchase_date', $dateString);
+        })
+        ->when($category, function ($query, $category) {
+            return $query->where('purchase_category', $category);
+        })
+        ->when($location, function ($query, $location) {
+            return $query->where('project_location', $location);
+        })
+        ->latest()
+        ->get();
 
-        return view('purchases.show', compact('purchase'));
-    }
+    return view('purchases.search', compact('formattedDate', 'purchases', 'location'));
+}
 
 
 
+
+/**
+ * Display the specified resource.
+ *
+ * @param  int  $id
+ * @return \Illuminate\Http\Response
+ */
+public function show($id)
+{
+    // Logic to fetch and display a specific purchase
+}
 
 
 
@@ -76,6 +91,9 @@ class PurchaseController extends Controller
      */
     public function create()
     {
+
+
+        
         $projectnames = Project::latest()->get();
         $locationnames = Location::latest()->get();
         $purchasecategory = PurchaseCategory::latest()->get();
@@ -93,6 +111,7 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'file_field' => 'required|mimes:csv,txt,xls,xlsx,pdf|max:2048',
             'purchase_category' => 'required',
             'product_image' => 'required|max:2048',
         ]);
@@ -104,10 +123,15 @@ class PurchaseController extends Controller
         $p = explode('/', $path);
         $filepath = 'storage/product_image/' . $p[2];
 
+        $dateString = $request['purchase_date'];
+        $date = new \DateTime($dateString);
+        $formattedDate = $date->format('Y-m-d');
+        
         Purchase::create([
+            
             'project_name' => $request['project_name'],
             'project_location' => $request['project_location'],
-            'purchase_date' => $request['purchase_date'],
+            'purchase_date' => $formattedDate,
             'purchase_category' => $request['purchase_category'],
             'product_image' => $filepath,
             'total_amount' => $request['total_amount'],
@@ -153,6 +177,23 @@ class PurchaseController extends Controller
             'purchase_category' => 'required',
         ]);
 
+
+
+    //     echo  $request['purchase_date'];
+    //     $dateformat=$request['purchase_date'];
+    //  echo  date_format($dateformat,"Y-m-d");
+    //     exit;
+
+    $dateString = $request['purchase_date'];
+    $date = new \DateTime($dateString);
+    $formattedDate = $date->format('Y-m-d');
+    
+    // echo $formattedDate;
+    // exit;
+    
+
+
+
         if ($request->hasFile('product_image_new')) {
             $name = $request->file('product_image_new')->getClientOriginalName();
             $extension = $request->file('product_image_new')->getClientOriginalExtension();
@@ -161,11 +202,14 @@ class PurchaseController extends Controller
             $p = explode('/', $path);
             $filepath = 'storage/product_image/' . $p[2];
 
+         
+
+
             $purchase->update([
                 'product_name' => $request['product_name'],
                 'project_name' => $request['project_name'],
                 'project_location' => $request['project_location'],
-                'purchase_date' => $request['purchase_date'],
+                'purchase_date' => $formattedDate,
                 'purchase_category' => $request['purchase_category'],
                 'product_image' => $filepath,
                 'total_amount' => $request['total_amount'],
@@ -178,7 +222,23 @@ class PurchaseController extends Controller
                 'userid' => $request['userid'],
             ]);
         } else {
-            $purchase->update($request->all());
+            // $purchase->update($request->all());
+            $purchase->update([
+                'product_name' => $request['product_name'],
+                'project_name' => $request['project_name'],
+                'project_location' => $request['project_location'],
+                'purchase_date' => $formattedDate,
+                'purchase_category' => $request['purchase_category'],
+                // 'product_image' => $filepath,
+                'total_amount' => $request['total_amount'],
+                'subcontractor' => $request['subcontractor'],
+                'state' => $request['state'],
+                'first_name' => $request['first_name'],
+                'last_name' => $request['last_name'],
+                'email' => $request['email'],
+                'phone' => $request['phone_number'],
+                'userid' => $request['userid'],
+            ]);
         }
 
         return redirect()->route('purchases.index')->with('success', 'Purchase updated successfully.');

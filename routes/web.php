@@ -9,6 +9,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PurchasecategoryController;
 use App\Http\Controllers\PurchaseController;
 
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserroleController;
 
 
@@ -51,4 +52,7 @@ Route::post('/roleconnect/update', [RoleConnectController::class, 'update'])->na
 Route::get('/userroles', [UserroleController::class, 'index'])->name('userroles.index');
 Route::post('/userroles/update', [UserroleController::class, 'updateRoleConnect'])->name('userroles.updateRoleConnect');
 
-Route::get('purchases/search', [PurchaseController::class, 'search'])->name('purchases.search');
+Route::any('purchases/search', [PurchaseController::class, 'search'])->name('purchases.search');
+
+Route::get('/generate-pdf', [PDFController::class, 'generatePdf'])->name('purchases.pdf');
+
