@@ -56,6 +56,7 @@
                     <option value="">Select User Type</option>
                     <option value="2">Company</option>
                     <option value="3">Sub-Contractor/End user</option>
+                    <option value="4">Employee</option>
                 </select>
             </div>
         </div>

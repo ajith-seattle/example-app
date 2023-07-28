@@ -111,7 +111,7 @@ public function show($id)
     public function store(Request $request)
     {
         $request->validate([
-            'file_field' => 'required|mimes:csv,txt,xls,xlsx,pdf|max:2048',
+            // 'file_field' => 'required|mimes:csv,txt,xls,xlsx,pdf|max:2048',
             'purchase_category' => 'required',
             'product_image' => 'required|max:2048',
         ]);
