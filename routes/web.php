@@ -11,6 +11,7 @@ use App\Http\Controllers\PurchaseController;
 
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserroleController;
+use App\Http\Controllers\ProfileController;
 
 
 /*
@@ -56,3 +57,12 @@ Route::any('purchases/search', [PurchaseController::class, 'search'])->name('pur
 
 Route::get('/generate-pdf', [PDFController::class, 'generatePdf'])->name('purchases.pdf');
 
+// routes/web.php
+
+
+
+// Route to display the profile editing form
+Route::get('/users/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
+
+// Route to handle the form submission and update the user's profile data
+Route::post('/users/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
