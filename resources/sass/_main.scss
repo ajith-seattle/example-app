@@ -1,0 +1,104 @@
+.main-wrapper {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+    .main-nav {
+        width: 315px;
+        height: 100vh;
+    }
+    .main-nav-wrapper {
+        padding: 0;
+        align-items: flex-start;
+    }
+    .main-nav {
+        display: flex;
+        flex-direction: column;
+        .list-item-link {
+            color: #000;
+            font-family: Manrope;
+            font-size: 22px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 26px;
+            padding: 21px 25px;
+            background-color: #EDEDED;
+            &.active {
+                background-color: #9ED6F6;
+            }
+            &:hover {
+                background-color: #9ED6F6;
+            }
+        }
+    }
+    .main-body {
+        width: 100%;
+        .container {
+            padding: 0 15px;
+        }
+        .card {
+            border: none;
+        }
+        .card-header {
+            font-size: 22px;
+            line-height: 26px;
+            font-weight: 500;
+            border: none;
+            padding: 0;
+            background-color: transparent;
+        }
+        .card-body {
+            padding: 0;
+            margin-top: 35px;
+            background-color: transparent;
+        }
+    }
+    .container {
+        padding: 0;
+        .hidden {
+            display: none;
+        }
+    }
+    // item-action
+    .item-action {
+        display: flex;
+        padding: 35px 0 55px 0;
+        margin-left: 30px;
+        .list-item {
+            &+.list-item {
+                margin-left: 20px;
+            }
+        }
+    }
+    // right-content
+    .right-content {
+        margin-top: 35px;
+        .card {
+            margin-top: 55px;
+        }
+    }
+}
+
+.export-btn-wrap {
+    margin-left: 30px;
+}
+
+.forgot-link {
+    color: #0054F8;
+    font-family: Manrope;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    width: fit-content;
+    margin: 30px auto;
+    display: block;
+}
+
+// common
+.create-content {
+    margin-top: 35px;
+    .btn-reverse {
+        margin-bottom: 55px;
+    }
+}

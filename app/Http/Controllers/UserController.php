@@ -22,6 +22,7 @@ class UserController extends Controller
     
         return view('users.index',compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
+            
     }
     function loginindex(Request $request)
     {

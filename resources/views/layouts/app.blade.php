@@ -27,13 +27,54 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+
+<header>
+    <div class="header-wrapper {{ request()->is('login') ? ' d-none' : '' }}">
+        <div class="header-content">
+            <div class="user-manage">
+            <div class="user-icon">
+            <div class="nav-item dropdown">
+    @auth <!-- Check if a user is authenticated -->
+        <a id="navbarDropdown" class="nav-link dropdown-toggle list-item-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="22" cy="22" r="21.5" fill="#D9D9D9" stroke="black"/>
+                <circle cx="22" cy="15" r="6" fill="#9D9D9D"/>
+                <ellipse cx="22" cy="33" rx="14" ry="8" fill="#9D9D9D"/>
+            </svg>
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
+            <a class="dropdown-item" href="/users/profile" >
+                {{ __('Edit Profile') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </div>
+    @endauth
+</div>
+    
+      
+</div>
+               
+            </div>
+        </div>
+    </div>
+</header>
+<!-- body-content -->
+    <div id="app" class="main-wrapper">
         
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm main-nav-wrapper">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <!-- <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'PACT') }}
-                </a>
+                </a> -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -45,7 +86,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="main-nav navbar-nav ms-auto {{ request()->is('login') ? ' d-none' : '' }}">
                    
                                
                         <!-- Authentication Links -->
@@ -62,123 +103,76 @@
                                 </li>
                             @endif
                         @else
-                        <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/users" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        @if (Auth::user()->usertype == 1)
+
+                        <li class="nav-item dropdown ">
+                                <a  class="nav-link list-item-link {{ request()->is('users*') ? 'active' : '' }}" href="/users" >
                                     {{'Users' }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/users" >
-                                        {{ __('Manage Users') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/users/create" >
-                                        {{ __('Create Users') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/userroles" >
-                                        {{ __('useritems') }}
-                                    </a>
-                                    
-                                </div>
+                          
                                 
                             </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/users" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+    @endif
+
+                            @if (Auth::user()->usertype == 1)
+
+                            <li class="nav-item ">
+                                <a  class="nav-link  list-item-link {{ request()->is('companies*') ? 'active' : '' }}" href="/companies">
                                     {{'Company' }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/companies" >
-                                        {{ __('Manage Company') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/companies/create" >
-                                        {{ __('Create Company') }}
-                                    </a>
-                                    
-                                </div>
+                                
                                 
                             </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/locations" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+    @endif
+
+                            @if (Auth::user()->usertype == 1)
+
+                            <li class="nav-item ">
+                                <a class="nav-link  list-item-link {{ request()->is('locations*') ? 'active' : '' }}" href="/locations">
                                     {{'Location' }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/locations" >
-                                        {{ __('Manage Location') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/locations/create" >
-                                        {{ __('Create Location') }}
-                                    </a>
-                                    
-                                </div>
-                                
+                               
                             </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/states" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+    @endif
+
+                            @if (Auth::user()->usertype == 1)
+
+                            <li class="nav-item  ">
+                                <a  class="nav-link list-item-link {{ request()->is('states*') ? 'active' : '' }}" href="/states">
                                     {{'State' }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/states" >
-                                        {{ __('Manage State') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/states/create" >
-                                        {{ __('Create State') }}
-                                    </a>
-                                    
-                                </div>
                                 
                             </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/projects" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{'Projects' }}
-                                </a>
+    @endif
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/projects" >
-                                        {{ __('Manage Projects') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/projects/create" >
-                                        {{ __('Create Project') }}
-                                    </a>
-                                    
-                                </div>
-                                
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/purchasecategories" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            @if (Auth::user()->usertype == 1)
+        <li class="nav-item ">
+            <a  class="nav-link  list-item-link {{ request()->is('projects*') ? 'active' : '' }}" href="/projects" >
+                {{ 'Projects' }}
+            </a>
+        </li>
+    @endif
+                            <li class="nav-item ">
+                                <a  class="nav-link  list-item-link {{ request()->is('purchasecategories*') ? 'active' : '' }}" href="/purchasecategories" >
                                     {{'Purchase Category' }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/purchasecategories" >
-                                        {{ __('Manage Purchase Category') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/purchasecategories/create" >
-                                        {{ __('Create Purchase Category') }}
-                                    </a>
-                                    
-                                </div>
+                             
                                 
                             </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/purchase" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <li class="nav-item ">
+                                <a class="nav-link  list-item-link {{ request()->is('purchases*') ? 'active' : '' }}" href="/purchases" >
                                     {{'Purchase' }}
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/purchases" >
-                                        {{ __('Manage Purchase') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/purchases/create" >
-                                        {{ __('Create Purchase') }}
-                                    </a>
-                                    
-                                </div>
+                              
                                 
                             </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                 <!-- <li class="nav-item dropdown ">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle list-item-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -196,22 +190,42 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li>
+                            </li> -->
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="main-body">
             @yield('content')
         </main>
     </div>
     
 </body>
-</html>
+</html> 
 <script type="text/javascript">
         $(function() {
             $('#datepicker').datepicker();
         });
+
+      // Get all the navigation links
+    // const navLinks = document.querySelectorAll('.list-item-link');
+
+    // // Add a click event listener to each navigation link
+    // navLinks.forEach(navLink => {
+    //     navLink.addEventListener('click', function(event) {
+    //         // Prevent the default behavior of the anchor link
+    //         // event.preventDefault();
+
+    //         // Remove the 'active' class from all navigation links
+    //         navLinks.forEach(link => {
+    //             link.classList.remove('active');
+    //         });
+
+    //         // Add the 'active' class to the clicked navigation link
+    //         this.classList.add('active');
+    //     });
+    // });
+
     </script>

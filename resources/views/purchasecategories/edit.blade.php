@@ -2,10 +2,10 @@
    
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row right-content">
         <div class="col-lg-10 margin-tb">
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('purchasecategories.index') }}"> Back</a>
+            <a class="btn btn-primary btn-reverse" href="{{ route('purchasecategories.index') }}"> Back</a>
         </div>
         @if ($errors->any())
         <div class="alert alert-danger">

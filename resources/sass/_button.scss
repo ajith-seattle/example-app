@@ -1,0 +1,25 @@
+.btn {
+    display: flex;
+    padding: 18px 27px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #000;
+    &:hover {
+        color: #000;
+        background-color: #fff;
+    }
+}
+
+.btn-reverse {
+    max-width: fit-content;
+    padding: 14px 18px;
+}
+
+.delete-btn {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}

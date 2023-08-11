@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap);
 @charset "UTF-8"; /*!
  * Bootstrap  v5.2.1 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
@@ -49,7 +49,7 @@
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
   --bs-body-bg-rgb: 248, 250, 252;
-  --bs-font-sans-serif: "Nunito", sans-serif;
+  --bs-font-sans-serif: "Manrope", sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
@@ -10856,4 +10856,177 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 389px;
+  margin: 0 auto;
+  gap: 10px;
+}
+.login-wrapper .card {
+  border: none;
+}
+.login-wrapper .card-body {
+  padding: 0;
+}
+.login-wrapper .login-form-card {
+  flex: 1 1 0;
+  max-width: 100%;
+  padding: 0;
+}
+.login-wrapper .form-control {
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid #000;
+  background: #FFF;
+}
+.login-wrapper .login-btn-wrapper {
+  width: 100%;
+}
+.login-wrapper .login-btn {
+  width: 100%;
+}
+
+.btn {
+  display: flex;
+  padding: 18px 27px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  border: 2px solid #000;
+  background: #000;
+}
+.btn:hover {
+  color: #000;
+  background-color: #fff;
+}
+
+.btn-reverse {
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  padding: 14px 18px;
+}
+
+.delete-btn {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.main-wrapper {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  background-color: #fff;
+}
+.main-wrapper .main-nav {
+  width: 315px;
+  height: 100vh;
+}
+.main-wrapper .main-nav-wrapper {
+  padding: 0;
+  align-items: flex-start;
+}
+.main-wrapper .main-nav {
+  display: flex;
+  flex-direction: column;
+}
+.main-wrapper .main-nav .list-item-link {
+  color: #000;
+  font-family: Manrope;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  padding: 21px 25px;
+  background-color: #EDEDED;
+}
+.main-wrapper .main-nav .list-item-link.active {
+  background-color: #9ED6F6;
+}
+.main-wrapper .main-nav .list-item-link:hover {
+  background-color: #9ED6F6;
+}
+.main-wrapper .main-body {
+  width: 100%;
+}
+.main-wrapper .main-body .container {
+  padding: 0 15px;
+}
+.main-wrapper .main-body .card {
+  border: none;
+}
+.main-wrapper .main-body .card-header {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 500;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+.main-wrapper .main-body .card-body {
+  padding: 0;
+  margin-top: 35px;
+  background-color: transparent;
+}
+.main-wrapper .container {
+  padding: 0;
+}
+.main-wrapper .container .hidden {
+  display: none;
+}
+.main-wrapper .item-action {
+  display: flex;
+  padding: 35px 0 55px 0;
+  margin-left: 30px;
+}
+.main-wrapper .item-action .list-item + .list-item {
+  margin-left: 20px;
+}
+.main-wrapper .right-content {
+  margin-top: 35px;
+}
+.main-wrapper .right-content .card {
+  margin-top: 55px;
+}
+
+.export-btn-wrap {
+  margin-left: 30px;
+}
+
+.forgot-link {
+  color: #0054F8;
+  font-family: Manrope;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 30px auto;
+  display: block;
+}
+
+.create-content {
+  margin-top: 35px;
+}
+.create-content .btn-reverse {
+  margin-bottom: 55px;
+}
+
+.header-wrapper {
+  padding: 20px;
+  border-bottom: 1px solid #000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: flex-end;
+}
+.header-content .nav-link::after {
+  content: none;
 }

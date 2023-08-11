@@ -1,10 +1,10 @@
 @extends('layouts.app')  
 @section('content')
-<div class="container">
-<div class="row justify-content-center">
+<div class="container create-content">
+<div class="row">
  <div class="col-lg-10 margin-tb">
  <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('projects.index') }}"> Back</a>
+            <a class="btn btn-primary btn-reverse" href="{{ route('projects.index') }}"> Back</a>
         </div>
  <div class="card">
     <div class="card-header">{{ __('Add New Purchase Category') }}</div>
