@@ -29,7 +29,7 @@
 <body>
 
 <header>
-    <div class="header-wrapper {{ request()->is('login') ? ' d-none' : '' }}">
+    <div class="header-wrapper {{ request()->is('/') ? ' d-none' : '' }}">
         <div class="header-content">
             <div class="user-manage">
             <div class="user-icon">
@@ -86,12 +86,12 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="main-nav navbar-nav ms-auto {{ request()->is('login') ? ' d-none' : '' }}">
+                    <ul class="main-nav navbar-nav ms-auto {{ request()->is('/') ? ' d-none' : '' }}">
                    
                                
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            <!-- @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
@@ -101,7 +101,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif -->
                         @else
                         @if (Auth::user()->usertype == 1)
 
@@ -149,7 +149,7 @@
                             </li>
     @endif
 
-                            @if (Auth::user()->usertype == 1)
+    @if (Auth::user()->usertype == 1 || Auth::user()->usertype == 2)
         <li class="nav-item ">
             <a  class="nav-link  list-item-link {{ request()->is('projects*') ? 'active' : '' }}" href="/projects" >
                 {{ 'Projects' }}
