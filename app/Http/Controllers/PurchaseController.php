@@ -34,6 +34,7 @@ class PurchaseController extends Controller
         $locationnames = Location::latest()->get();
         return view('purchases.index', compact('purchases', 'purchasecategory','locationnames'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
+        
     }
     
 

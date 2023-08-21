@@ -80,6 +80,23 @@
                 </select>
             </div>
         </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-6 mb-3">
+    <div class="form-group">
+        <strong>Company Logo:</strong>
+        <input type="file" name="company_logo_new" class="form-control" placeholder="Choose file">
+        @if ($user->company)
+            <input type="hidden" name="company_logo" value="{{ $user->company->company_logo }}" />
+            <img src="{{ url('/') }}/{{$user->company->company_logo}}" width="100"/>
+        @endif
+        @error('company_logo_new')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
+
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
               <button type="submit" class="btn btn-primary">Update</button>
             </div>
@@ -93,27 +110,4 @@
     </div>
 @endsection
 
-<!--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-$(document).ready(function(){
-   
-    $("select#team_id").change(function(){
-        $(this).find("option:selected").each(function(){
-            var optionValue = $(this).attr("value");
-          if(optionValue == 2){
-          $("#toshow").show();
-          $("#companylist").hide();
-        }else if(optionValue == 3)
-        {
-          $("#toshow").hide();
-          $("#companylist").show();
-          
-        }
-        else{
-            $("#toshow").hide();
-          $("#companylist").hide();
-        }
-        });
-    }).change();
-});
-</script>-->
+

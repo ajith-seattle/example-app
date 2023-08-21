@@ -103,6 +103,15 @@
                                 </li>
                             @endif -->
                         @else
+                        
+                        <li class="nav-item dropdown ">
+                                <a  class="nav-link list-item-link {{ request()->is('home*') ? 'active' : '' }}" href="/home" >
+                                    {{'Dashboard' }}
+                                </a>
+
+                          
+                                
+                            </li>
                         @if (Auth::user()->usertype == 1)
 
                         <li class="nav-item dropdown ">
@@ -127,7 +136,8 @@
                             </li>
     @endif
 
-                            @if (Auth::user()->usertype == 1)
+    @if (Auth::user()->usertype == 1 || Auth::user()->usertype == 2)
+
 
                             <li class="nav-item ">
                                 <a class="nav-link  list-item-link {{ request()->is('locations*') ? 'active' : '' }}" href="/locations">
