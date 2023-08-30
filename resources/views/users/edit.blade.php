@@ -60,7 +60,8 @@
                 <select name="usertype" class="form-control" onchange="change_type()" id="team_id">
                     <option value="">Select User Type</option>
                     <option value="2" {{ $user->usertype == 2 ? 'selected' : '' }}>Company</option>
-                    <option value="3" {{ $user->usertype == 3 ? 'selected' : '' }}>Sub-Contractor/End user</option>
+                    <option value="3" {{ $user->usertype == 3 ? 'selected' : '' }}>Sub-Contractor</option>
+                    <option value="3" {{ $user->usertype == 4 ? 'selected' : '' }}>Employee</option>
                 </select>
             </div>
         </div>

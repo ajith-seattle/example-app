@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\ProfileController;
 
 
 
@@ -49,3 +50,10 @@ Route::resource('users',App\Http\Controllers\UserController::class)->only(['inde
 Route::post('/roleconnect/update', 'UserroleController@updateRoleConnect')->name('roleconnect.update');
 
 Route::post('/store-role-connect', 'RoleConnectController@store')->name('storeRoleConnect');
+
+
+// Route to display the profile editing form
+Route::get('/users/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
+
+// Route to handle the form submission and update the user's profile data
+Route::post('/users/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');

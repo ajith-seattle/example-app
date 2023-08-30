@@ -37,6 +37,7 @@ class HomeController extends Controller
         $purchase_dates = $purchases->pluck('purchase_date')->toArray();
         $purchase_amounts = $purchases->pluck('total_amount')->toArray();
     
+         
         return view('home', compact('purchases', 'purchasecategory', 'locationnames', 'purchase_dates', 'purchase_amounts'));
     }
     
